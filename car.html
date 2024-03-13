@@ -65,6 +65,22 @@
         .btn-delete-visitor:hover {
             background-color: pink; /* Фон становится розовым при наведении */
         }
+        /* Добавленные стили */
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .input-container input {
+            width: calc(100% - 20px); /* Вычитаем ширину сообщения об ошибке */
+        }
+        
+        .error-message {
+            position: absolute;
+            bottom: -20px; /* Задаем отрицательное значение, чтобы сообщение об ошибке было ниже поля ввода */
+            left: 0;
+            width: 100%;
+        }
         .btn-lg {
             padding: 10px 20px; /* Поля кнопок */
             font-size: 18px; /* Размер шрифта */
@@ -96,7 +112,7 @@
                     <p style="font-weight: bold;">АВТОМОБИЛЬ 1</p>
                 </div>
                 <div class="car-info" id="car_info_1">
-                    <div class="form-group" style="display: flex; align-items: center;">
+                    <div class="form-group" style="display: flex; align-items: center; position: relative;">
                         <div style="flex: 1;">
                             <label for="car_model_1" style="margin-right: 10px;">Марка</label>
                             <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_1">
