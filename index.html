@@ -56,7 +56,7 @@
             height: 30px;
             padding: 0;
             line-height: 0;
-            background-color: transparent;
+            background-color: transparent !important; /* Убираем фон при нажатии */
             border: none;
             cursor: pointer;
             outline: none; /* Убираем зеленый фон при нажатии */
@@ -70,9 +70,11 @@
         }
         .btn-delete-visitor:hover {
             background-color: transparent; /* Убираем зелёный фон при наведении */
+            outline: none; /* Убираем обводку при фокусе */
         }
         .btn-delete-visitor:active {
             background-color: transparent; /* Убираем зелёный фон при нажатии */
+            outline: none; /* Убираем обводку при фокусе */
         }
         .btn-delete-visitor:focus {
             background-color: transparent; /* Убираем фон при фокусе */
