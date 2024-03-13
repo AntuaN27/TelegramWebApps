@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Pass</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script> <!--Подключаем скрипт от телеграм-->
+    <style>
+        /* Обновленные стили */
+        body {
+            background-color: #f8f9fa; /* Цвет фона страницы */
+            /*margin: 20px; !* Увеличенные отступы от границ страницы *!*/
+            /*padding: 20px; !* Увеличенные отступы от границ страницы *!*/
+        }
+        .rounded-container {
+            margin: 20px; /* Увеличенные отступы от границ страницы */
+            /*padding: 10px; !* Увеличенные отступы от границ страницы *!*/
+        }
+        /* Стили для заголовка */
+        .form-title-container {
+            background-color: #003366; /* Темно-синий цвет */
+            margin: 0; /* Убираем все отступы */
+            color: white;
+            text-align: center;
+            height: 75px; /* Установите нужную высоту */
+        }
+
+        /* Стили для заголовка */
+        .form-title {
+            margin: 0; /* Убираем все отступы */
+            font-size: 24px;
+        }
+
+        /* Обводка полей ввода */
+        .form-control {
+            border-color: #003366; /* Темно-синий цвет */
+        }
+        /* Стили для рамки вокруг контейнера каждого посетителя */
+        .visitor-container {
+            border: 1px solid #ced4da; /* Цвет и толщина рамки */
+            border-radius: 5px; /* Скругление углов */
+            padding: 10px; /* Внутренний отступ */
+            margin-top: 15px; /* Отступ сверху между контейнерами */
+        }
+        /* Разместить кнопку справа вверху */
+        .delete-button-container {
+            position: relative;
+            float: right; /* Переместить контейнер вправо */
+            margin-top: -10px; /* Чтобы сдвинуть контейнер наверх */
+            margin-right: -10px; /* Для учета отступа кнопки */
+        }
+        /* Стили для кнопки удаления посетителя */
+        .btn-delete-visitor {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            line-height: 0;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Стили для SVG иконки */
+        .btn-delete-visitor svg {
+            width: 100%;
+            height: 100%;
+            fill: red; /* Цвет крестика */
+        }
+        /* Изменение фона кнопки при наведении на неё */
+        .btn-delete-visitor:hover {
+            background-color: pink; /* Фон становится розовым при наведении */
+        }
+        .btn-lg {
+            padding: 10px 20px; /* Поля кнопок */
+            font-size: 18px; /* Размер шрифта */
+        }
+        .btn-equal-width {
+            width: 200px; /* Пример ширины, можно изменить на нужное значение */
+        }
+        /* Стили для кнопки */
+        .car-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* Стили при наведении курсора */
+        .car-button:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Стили при нажатии */
+        .car-button:active {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-title-container" style="display: flex; align-items: center; overflow: hidden; padding: 0;">
+        <h2 class="text-center mb-4 form-title" style="margin-top: 25px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 28px; margin-right: auto; margin-left: 3%;">ЗАКАЗ ПРОПУСКА</h2>
+        <div style="width: 50px; height: auto; vertical-align: middle; margin-right: 3%;">
+            <img src="https://codassistant-test.dit.mos.ru/scpass/static/pass_user.jpg" alt="+ M" style="width: 50px; height: auto;">
+        </div>
+    </div>
+    <div class="rounded-container" style="margin-left: 3%;">
+        <form id="form" novalidate>
+            <div>
+                <p style="font-weight: bold; margin-top: 30px;">ОСНОВНАЯ ИНФОРМАЦИЯ</p>
+            </div>
+            <div class="form-group">
+                <label for="date_now">Дата и время посещения</label>
+                <input type="date" class="form-control" placeholder="Дата посещения:" id="date_now">
+            </div>
+            <div class="form-group">
+                <div style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                        <label for="time_from">Со скольких</label>
+                        <input type="time" class="form-control" id="time_from">
+                    </div>
+                    <div style="width: 20px;"></div> <!-- отступ -->
+                    <div style="flex: 1;">
+                        <label for="time_to">До скольких</label>
+                        <input type="time" class="form-control" id="time_to">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fio_worker">ФИО встречающего</label>
+                <input type="text" class="form-control" placeholder="ФИО встречающего:" value="Иванов Иван Иванович" style="color: black;" id="fio_worker">
+            </div>
+            <div class="form-group">
+                <label for="purpose_visit">Цель визита (необязательно)</label>
+                <input type="text" class="form-control" placeholder="Совещание" id="purpose_visit">
+            </div>
+            <div>
+                <p style="font-weight: bold; margin-top: 30px;">ДАННЫЕ О ПОСЕТИТЕЛЯХ</p>
+            </div>
+            <div class="visitor-container" id="visitor_container_1">
+                <div>
+                    <p style="font-weight: bold;">Посетитель 1</p>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center;">
+                    <div style="flex: 1;">
+                        <label for="fio_visitor_1" style="margin-right: 10px;">ФИО посетителя</label>
+                        <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="fio_visitor_1" required>
+                        <div class="error-message text-danger" id="fio_visitor_error_1"></div> <!-- Элемент для вывода сообщений об ошибке -->
+                    </div>
+                    <div style="margin-left: 10px; display: flex; align-items: center;">
+                        <button type="button" onclick="toggleCarFields(1)" class="car-button" style="background: none; border: none; padding: 0; margin-top: 30px;">
+                            <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 35px;" id="car_photo_1">
+                        </button>
+                    </div>
+                </div>
+                <div class="car-info" id="car_info_1" style="display: none;">
+                    <div class="form-group" style="display: flex; align-items: center;">
+                        <div style="flex: 1;">
+                            <label for="car_model_1" style="margin-right: 10px;">Марка</label>
+                            <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_1">
+                            <div class="text-danger" id="car_model_error_1"></div>
+                        </div>
+                        <div style="width: 20px;"></div> <!-- Отступ между полями -->
+                        <div style="flex: 1;">
+                            <label for="car_registration_number_1" style="margin-right: 10px;">Гос. номер</label>
+                            <input type="text" class="form-control" placeholder="X123ME45" id="car_registration_number_1">
+                            <div class="text-danger" id="car_registration_number_error_1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="error" class="text-danger mb-3"></div>
+            <div class="text-center">
+                <div>
+                    <button type="button" class="btn btn-secondary btn-lg btn-equal-width" id="add_user" style="color: white; margin-top: 20px;">+ ДОБАВИТЬ ПОСЕТИТЕЛЯ</button>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-lg mr-3 btn-equal-width" id="my_button" style="background-color: #001f3f; color: white; margin-top: 15px;">ОТПРАВИТЬ ЗАЯВКУ</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        // Создание календаря и выбора времени
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentDate = new Date();
+            let year = currentDate.getFullYear();
+            let month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+            let day = ('0' + currentDate.getDate()).slice(-2);
+            document.getElementById('date_now').value = year + '-' + month + '-' + day;
+            let currentTime = new Date();
+            document.getElementById('time_from').value = formatTime(currentTime);
+            currentTime.setHours(currentTime.getHours() + 1);
+            document.getElementById('time_to').value = formatTime(currentTime);
+
+            // Получаем ширину поля ввода ФИО
+            let fioWorkerInput = document.getElementById('fio_worker');
+            let fioWorkerInputWidth = fioWorkerInput.offsetWidth;
+
+            // Применяем ширину поля ввода ФИО к кнопкам "Отправить заявку" и "Отмена"
+            let submitButton = document.getElementById('my_button');
+            let addUserButton = document.getElementById('add_user');
+
+            submitButton.style.width = fioWorkerInputWidth + 'px';
+            addUserButton.style.width = fioWorkerInputWidth + 'px';
+        });
+        function formatTime(date) {
+            return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+        }
+    </script>
+    <script>
+        // Подключение телеграмма
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        // Счётчик для добавления участников
+        let visitorCounter = 1;
+        // let lastVisitorField = document.getElementById('fio_visitor_1'); // Сохраняем ссылку на первое поле ввода "Посетитель 1"
+
+        document.getElementById('add_user').addEventListener('click', function() {
+            visitorCounter++;
+            let newVisitorField = document.createElement('div');
+            newVisitorField.classList.add('visitor-container');
+            newVisitorField.id = 'visitor_container_' + visitorCounter;
+            newVisitorField.innerHTML = `
+                <div class="form-group" style="position: relative;">
+                    <p style="font-weight: bold;">Посетитель ${visitorCounter}</p>
+                    <div class="delete-button-container" style="position: absolute; top: 0; right: 0;">
+                        <button type="button" class="btn btn-info btn-delete-visitor" onclick="removeVisitor(${visitorCounter})">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="gray" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center;">
+                        <div style="flex: 1;">
+                            <label for="fio_visitor_${visitorCounter}" style="margin-right: 10px;">ФИО посетителя</label>
+                            <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="fio_visitor_${visitorCounter}" style="width: 100%;" required>
+                            <div class="text-danger" id="fio_visitor_error_${visitorCounter}"></div> <!-- Блок для сообщения об ошибке -->
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <button type="button" onclick="toggleCarFields(${visitorCounter})" class="car-button" style="background: none; border: none; padding: 0; margin-left: 10px; margin-top: 28px;">
+                                <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 35px;" id="car_photo_${visitorCounter}">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-info" id="car_info_${visitorCounter}" style="display: none;">
+                    <div class="form-group" style="display: flex; align-items: center;">
+                        <div style="flex: 1;">
+                            <label for="car_model_1" style="margin-right: 10px;">Марка</label>
+                            <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_${visitorCounter}">
+                            <div class="text-danger" id="car_model_error_${visitorCounter}"></div>
+                        </div>
+                        <div style="width: 20px;"></div>
+                        <div style="flex: 1;">
+                            <label for="car_registration_number_1" style="margin-right: 10px;">Гос. номер</label>
+                            <input type="text" class="form-control" placeholder="X123ME45" id="car_registration_number_${visitorCounter}">
+                            <div class="text-danger" id="car_registration_number_error_${visitorCounter}"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Находим последний контейнер посетителя
+            let lastVisitorContainer = document.getElementById(`visitor_container_${visitorCounter - 1}`);
+            // Вставляем новый контейнер после последнего контейнера
+            lastVisitorContainer.parentNode.insertBefore(newVisitorField, lastVisitorContainer.nextSibling);
+        });
+        // Функция для сброса стилей кнопки удаления
+        function resetDeleteButtonStyle(counter) {
+            let deleteButton = document.querySelector(`#visitor_container_${counter} .btn-delete-visitor`);
+            deleteButton.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
+        }
+        // Функция удаления посетителя
+        function removeVisitor(counter) {
+            let visitorToRemove = document.getElementById(`visitor_container_${counter}`);
+            if (visitorToRemove) {
+                visitorToRemove.parentNode.removeChild(visitorToRemove);
+                visitorCounter--; // Уменьшаем счетчик посетителей
+
+                let carPhotoButtonToRemove = document.getElementById(`car_photo_${counter}`);
+                if (carPhotoButtonToRemove) {
+                    carPhotoButtonToRemove.removeAttribute('onclick');
+                }
+
+                // Обновляем атрибуты onclick для кнопок удаления
+                let visitorContainers = document.querySelectorAll('.visitor-container');
+                for (let i = counter - 1; i < visitorContainers.length; i++) {
+                    let currentCounter = i + 1;
+                    let currentVisitorContainer = visitorContainers[i];
+                    currentVisitorContainer.id = `visitor_container_${currentCounter}`;
+                    currentVisitorContainer.querySelector('p').innerText = `Посетитель ${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_photo_${currentCounter + 1}`).id = `car_photo_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`label[for="fio_visitor_${currentCounter + 1}"]`).setAttribute('for', `fio_visitor_${currentCounter}`);
+                    currentVisitorContainer.querySelector(`input[id="fio_visitor_${currentCounter + 1}"]`).id = `fio_visitor_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_info_${currentCounter + 1}`).id = `car_info_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_model_${currentCounter + 1}`).id = `car_model_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_registration_number_${currentCounter + 1}`).id = `car_registration_number_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_model_error_${currentCounter + 1}`).id = `car_model_error_${currentCounter}`;
+                    currentVisitorContainer.querySelector(`#car_registration_number_error_${currentCounter + 1}`).id = `car_registration_number_error_${currentCounter}`;
+                    currentVisitorContainer.querySelector('.car-button').setAttribute('onclick', `toggleCarFields(${currentCounter})`);
+
+                    currentVisitorContainer.querySelector('.btn-delete-visitor').setAttribute('onclick', `removeVisitor(${currentCounter})`);
+                    // Сбрасываем стили кнопки удаления для текущего пользователя
+                    resetDeleteButtonStyle(currentCounter);
+                }
+            }
+        }
+        function toggleCarFields(counter) {
+            let carInfo = document.getElementById(`car_info_${counter}`);
+            let computedStyle = window.getComputedStyle(carInfo);
+            if (computedStyle.display === 'none') {
+                carInfo.style.display = 'block';
+                // Изменяем изображение на кнопке при раскрытии полей
+                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/del_car.jpg'; // Путь к изображению при открытых полях
+            } else {
+                carInfo.style.display = 'none';
+                // Изменяем изображение на кнопке при скрытии полей
+                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/car.jpg'; // Путь к изображению при закрытых полях
+            }
+        }
+
+        function validateCarFields(counter) {
+            let isValid = true; // Переменная для отслеживания валидности полей автомобиля.
+            // Получаем значения модели автомобиля и госномера
+            let carModel = document.getElementById(`car_model_${counter}`).value.trim();
+            let carRegistrationNumber = document.getElementById(`car_registration_number_${counter}`).value.trim();
+            // Проверка модели автомобиля
+            if (carModel.length < 2) {
+                document.getElementById(`car_model_error_${counter}`).innerText = 'Марка автомобиля должна содержать не менее 2 символов.';
+                isValid = false;
+            } else {
+                document.getElementById(`car_model_error_${counter}`).innerText = ''; // Очищаем сообщение об ошибке
+            }
+            // Проверка госномера автомобиля
+            let registrationNumberPattern = /^[A-ZА-Я]\d{3}[A-ZА-Я]{2}\d{2,3}$/i;
+            if (!registrationNumberPattern.test(carRegistrationNumber)) {
+                document.getElementById(`car_registration_number_error_${counter}`).innerText = 'Некорректный госномер автомобиля (формат X123XX45 или X123XX456).';
+                isValid = false;
+            } else {
+                document.getElementById(`car_registration_number_error_${counter}`).innerText = ''; // Очищаем сообщение об ошибке
+            }
+            return isValid;
+        }
+
+        document.getElementById('form').addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("error").innerText = '';
+            let date = document.getElementById("date_now").value;
+            let time_from = document.getElementById("time_from").value;
+            let time_to = document.getElementById("time_to").value;
+            let fio_worker = document.getElementById("fio_worker").value;
+            let purpose_visit = document.getElementById("purpose_visit").value;
+            let fioVisitorInputs = document.querySelectorAll('input[id^="fio_visitor_"]');
+            let fio_visitors = []; // Создаем массив для хранения значений
+
+            // Проверка заполнения каждого поля ФИО посетителя
+            let allFieldsFilled = true; // Предполагаем, что все поля заполнены
+
+            fioVisitorInputs.forEach(input => {
+                let inputValue = input.value.trim(); // Получаем значение поля и удаляем лишние пробелы
+
+                if (inputValue === "") {
+                    allFieldsFilled = false; // Если хотя бы одно поле пустое, устанавливаем флаг в false
+                }
+
+                fio_visitors.push(inputValue); // Добавляем значение каждого input в массив
+            });
+
+            // Проверяем, заполнены ли все поля ФИО посетителя
+            if (!allFieldsFilled) {
+                document.getElementById("error").innerText = 'Пожалуйста, заполните все обязательные поля.';
+                return; // Останавливаем выполнение функции, если хотя бы одно поле не заполнено
+            }
+            // Проверка корректности введённой даты
+            let currentDate = new Date();
+            let selectedDates = new Date(document.getElementById("date_now").value);
+            if (selectedDates.getDate() < currentDate.getDate()) {
+                document.getElementById("error").innerText = 'Пожалуйста, выберите корректную дату.';
+                return;
+            }
+
+            // Проверка времени "до" больше времени "с"
+            let selectedDateStr = document.getElementById("date_now").value;
+            let selectedDateParts = selectedDateStr.split('-');
+            let selectedDate = new Date(selectedDateParts[0], selectedDateParts[1] - 1, selectedDateParts[2]);
+            let startTimeParts = time_from.split(':');
+            let endTimeParts = time_to.split(':');
+            let startTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), startTimeParts[0], startTimeParts[1]);
+            let endTime = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), endTimeParts[0], endTimeParts[1]);
+
+            if (endTime <= startTime) {
+                document.getElementById("error").innerText = 'Время окончания визита должно быть больше времени начала визита.';
+                return;
+            }
+
+            let carInfo = [];
+            // Перебор всех посетителей
+            for (let i = 1; i <= visitorCounter; i++) {
+                let carModelInput = document.getElementById(`car_model_${i}`);
+                let carRegistrationNumberInput = document.getElementById(`car_registration_number_${i}`);
+
+                // Проверка наличия информации о машине для текущего посетителя
+                if (carModelInput && carRegistrationNumberInput) {
+                    // Проверка видимости полей с информацией о машине
+                    if (carModelInput.closest('.car-info').style.display !== 'none' && carRegistrationNumberInput.closest('.car-info').style.display !== 'none') {
+                        // Получение значений модели машины и номера регистрации
+                        let carModel = carModelInput.value.trim();
+                        let carRegistrationNumber = carRegistrationNumberInput.value.trim();
+
+                        // Проверка корректности заполнения полей автомобиля
+                        if (!validateCarFields(i)) {
+                            // document.getElementById("error").innerText = `Пожалуйста, проверьте корректность заполнения полей автомобиля для посетителя ${i}.`;
+                            document.getElementById("error").innerText = 'Пожалуйста, заполните все обязательные поля.';
+                            // Выделяем поля с ошибкой красным ободком
+                            carModelInput.style.borderColor = 'red';
+                            carRegistrationNumberInput.style.borderColor = 'red';
+                            return; // Прерываем выполнение функции, если есть ошибки в полях автомобиля
+                        } else {
+                            // Если ошибок нет, сбрасываем стили
+                            carModelInput.style.borderColor = '';
+                            carRegistrationNumberInput.style.borderColor = '';
+                        }
+                        // Добавление информации о машине в список carInfo
+                        carInfo.push({
+                            car_model: carModel,
+                            car_registration_number: carRegistrationNumber
+                        });
+                    }
+                }
+            }
+            let data = {
+                date: date,
+                time_from: time_from,
+                time_to: time_to,
+                fio_worker: fio_worker,
+                purpose_visit: purpose_visit,
+                fio_visitor: fio_visitors,
+                car_info: carInfo,
+                id: tg.initDataUnsafe.user.id,
+                first_name: tg.initDataUnsafe.user.first_name,
+                form_width: document.getElementById('form').offsetWidth,
+                form_height: document.getElementById('form').offsetHeight,
+            }
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://codassistant-test.dit.mos.ru/scpass/webhook", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log("Успешный запрос");
+                    } else {
+                        console.error('Ошибка ' + xhr.status); // Выводим ошибку, если запрос неудачный
+                    }
+                    tg.close(); // Закрываем окно телеграмма после завершения запроса
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputs = document.querySelectorAll('input[type="text"]');
+
+            inputs.forEach(function(input) {
+                input.addEventListener('click', function(event) {
+                    // Открываем клавиатуру для текущего поля ввода
+                    input.focus();
+                });
+                input.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        // Скрываем клавиатуру при нажатии Enter
+                        input.blur();
+                    }
+                });
+            });
+            // Добавляем обработчик события клика для закрытия клавиатуры при клике вне поля ввода
+            document.addEventListener('click', function(event) {
+                const targetElement = event.target;
+                if (targetElement.tagName !== 'INPUT') {
+                    inputs.forEach(function(input) {
+                        input.blur(); // Закрываем клавиатуру для всех полей ввода
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(document).on('input', 'input[id^="car_model_"]', function(){
+                const id = $(this).attr('id').split('_').pop();
+                const inputText = $(this).val().trim().toLowerCase();
+
+                // Очищаем список подсказок
+                const datalist = $('#car_model_' + id);
+                datalist.empty();
+
+                // Если введенный текст пуст, выходим из функции
+                if (!inputText) return;
+
+                // Запрашиваем подсказки с сервера
+                $.get('https://codassistant-test.dit.mos.ru/scpass/car_models', {query: inputText}, function(data){
+                    data.forEach(function(model){
+                        datalist.append('<option value="' + model + '">');
+                    });
+                });
+            });
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</body>
+</html>
