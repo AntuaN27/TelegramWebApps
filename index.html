@@ -268,10 +268,10 @@
             lastVisitorContainer.parentNode.insertBefore(newVisitorField, lastVisitorContainer.nextSibling);
         });
         // // Функция для сброса стилей кнопки удаления
-        // function resetDeleteButtonStyle(counter) {
-        //     let deleteButton = document.querySelector(`#visitor_container_${counter} .btn-delete-visitor`);
-        //     deleteButton.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
-        // }
+        function resetDeleteButtonStyle(counter) {
+            let deleteButton = document.querySelector(`#visitor_container_${counter} .btn-delete-visitor`);
+            deleteButton.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
+        }
         // Функция удаления посетителя
         function removeVisitor(counter) {
             let visitorToRemove = document.getElementById(`visitor_container_${counter}`);
@@ -303,7 +303,7 @@
 
                     currentVisitorContainer.querySelector('.btn-delete-visitor').setAttribute('onclick', `removeVisitor(${currentCounter})`);
                     // Сбрасываем стили кнопки удаления для текущего пользователя
-                    // resetDeleteButtonStyle(currentCounter);
+                    resetDeleteButtonStyle(currentCounter);
                 }
             }
         }
