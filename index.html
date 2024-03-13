@@ -67,9 +67,9 @@
             height: 100%;
             fill: red; /* Цвет крестика */
         }
-        /* Изменение фона кнопки при наведении на неё */
-        .btn-delete-visitor:hover {
-            background-color: pink; /* Фон становится розовым при наведении */
+        /* Стили для кнопки удаления посетителя, когда она скрыта */
+        .btn-delete-visitor.hidden {
+            background-color: transparent; /* Сбрасываем фон кнопки при скрытии ячейки */
         }
         /* Стили для кнопки удаления посетителя после удаления */
         .visitor-container[style*="visibility: hidden;"] .btn-delete-visitor {
@@ -276,6 +276,14 @@
         function removeVisitor(counter) {
             let visitorToRemove = document.getElementById(`visitor_container_${counter}`);
             if (visitorToRemove) {
+                // Скрываем контейнер с посетителем
+                visitorToRemove.style.visibility = 'hidden';
+                // Добавляем класс hidden для кнопки удаления
+                let deleteButton = visitorToRemove.querySelector('.btn-delete-visitor');
+                if (deleteButton) {
+                    deleteButton.classList.add('hidden');
+                }
+                
                 visitorToRemove.parentNode.removeChild(visitorToRemove);
                 visitorCounter--; // Уменьшаем счетчик посетителей
 
