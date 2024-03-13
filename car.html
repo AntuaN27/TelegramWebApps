@@ -126,13 +126,14 @@
     <script>
         // Подключение телеграмма
         let tg = window.Telegram.WebApp;
-        tg.expand();
+        // tg.expand();
         // Счётчик для добавления участников
         let visitorCounter = 1;
         // let lastVisitorField = document.getElementById('fio_visitor_1'); // Сохраняем ссылку на первое поле ввода "Посетитель 1"
 
         document.getElementById('add_car').addEventListener('click', function() {
             visitorCounter++;
+            tg.expand();
             let newVisitorField = document.createElement('div');
             newVisitorField.classList.add('visitor-container');
             newVisitorField.id = 'visitor_container_' + visitorCounter;
