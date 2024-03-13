@@ -271,7 +271,21 @@
         function resetDeleteButtonStyle(counter) {
             let deleteButton = document.querySelector(`#visitor_container_${counter} .btn-delete-visitor`);
             deleteButton.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
+            deleteButton.removeEventListener('mouseenter', changeButtonColor);
+            deleteButton.removeEventListener('mouseleave', resetButtonColor);
+            deleteButton.addEventListener('mouseenter', toggleButtonColor);
+            deleteButton.addEventListener('mouseleave', toggleButtonColor);
         }
+        
+        // Функция изменения цвета кнопки при наведении и сброса цвета при уходе мыши
+        function toggleButtonColor(event) {
+            if (event.type === 'mouseenter' && event.target.style.backgroundColor === 'transparent') {
+                event.target.style.backgroundColor = 'pink'; // Розовый фон кнопки
+            } else {
+                event.target.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
+            }
+        }
+
         // Функция удаления посетителя
         function removeVisitor(counter) {
             let visitorToRemove = document.getElementById(`visitor_container_${counter}`);
