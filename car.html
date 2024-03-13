@@ -69,21 +69,17 @@
         .input-container {
             position: relative;
             width: 100%;
-            min-height: 60px; /* Увеличиваем минимальную высоту контейнера */
         }
         
         .input-container input {
             width: 100%;
-            height: calc(100% - 20px); /* Высота поля ввода будет на 20px меньше высоты контейнера */
             margin-bottom: 10px; /* Добавляем отступ снизу для поля ввода */
         }
         
         .error-message {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding-top: 5px; /* Добавляем небольшой отступ сверху, чтобы сообщение было чуть выше */
+            color: red; /* Цвет текста ошибки */
+            font-size: 14px; /* Размер шрифта для сообщения об ошибке */
+            margin-top: 5px; /* Отступ сверху для сообщения об ошибке */
         }
         .btn-lg {
             padding: 10px 20px; /* Поля кнопок */
