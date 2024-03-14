@@ -66,23 +66,28 @@
             background-color: pink; /* Фон становится розовым при наведении */
         }
         /* Добавленные стили */
-        .input-container {
+       .input-container {
             display: flex;
             margin-top: 40px;
             flex-direction: column;
             position: relative;
+            /* Добавлены свойства для фиксации полей ввода относительно верха */
+            position: relative;
+            padding-top: 20px; /* Отступ от верхнего края контейнера */
         }
         
         .input-container input {
             width: 100%;
-            position: relative;
-            margin-bottom: 10px; /* Добавляем отступ снизу для поля ввода */
+            /* Убрано позиционирование */
+            /* position: relative; */
+            margin-bottom: 10px;
         }
         
         .error-message {
             color: red;
             font-size: 14px;
-            bottom: -50px; /* Регулируйте эту величину по вашему усмотрению */
+            position: absolute;
+            bottom: -20px; /* Отступ от нижнего края поля ввода */
         }
         .btn-lg {
             padding: 10px 20px; /* Поля кнопок */
