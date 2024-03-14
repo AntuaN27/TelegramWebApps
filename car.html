@@ -67,8 +67,9 @@
         }
         /* Добавленные стили */
         .input-container {
-            display: flex;
-            flex-direction: column;
+/*             display: flex;
+            flex-direction: column; */
+            
             position: relative;
         }
         
@@ -83,9 +84,14 @@
         .error-message {
             color: red;
             font-size: 12px;
-            position: relative; /* Используем относительное позиционирование */
-            top: -10px; /* Отступ от верхнего края поля ввода */
-            width: 100%; /* Ширина текста ошибки равна ширине родительского контейнера */
+            /*position: relative;  Используем относительное позиционирование */
+            /*top: -10px;  Отступ от верхнего края поля ввода */
+            /*width: 100%;  Ширина текста ошибки равна ширине родительского контейнера */
+
+            position: absolute;
+            bottom: -20px; /* Отступ от нижнего края поля ввода */
+
+            
         }
         .btn-lg {
             padding: 10px 20px; /* Поля кнопок */
