@@ -66,10 +66,16 @@
             background-color: pink; /* Фон становится розовым при наведении */
         }
         /* Добавленные стили */
-       .input-container {
+        .input-container {
             display: flex;
+            flex-direction: column;
             position: relative;
         }
+        
+        .input-container label {
+            margin-bottom: 5px; /* Отступ между меткой и полем ввода */
+        }
+        
         .input-container input {
             width: 100%;
         }
@@ -77,7 +83,8 @@
         .error-message {
             color: red;
             font-size: 12px;
-            bottom: -25px; /* Отступ от нижнего края поля ввода */
+            position: absolute;
+            bottom: -20px; /* Отступ от нижнего края поля ввода */
         }
         .btn-lg {
             padding: 10px 20px; /* Поля кнопок */
