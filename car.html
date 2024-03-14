@@ -200,6 +200,20 @@
             let lastVisitorContainer = document.getElementById(`visitor_container_${visitorCounter - 1}`);
             // Вставляем новый контейнер после последнего контейнера
             lastVisitorContainer.parentNode.insertBefore(newVisitorField, lastVisitorContainer.nextSibling);
+
+            // Обработчики событий для валидации новых полей автомобилей при потере фокуса
+            let newCarModelInput = document.getElementById(`car_model_${visitorCounter}`);
+            let newCarRegistrationNumberInput = document.getElementById(`car_registration_number_${visitorCounter}`);
+        
+            if (newCarModelInput && newCarRegistrationNumberInput) {
+                newCarModelInput.addEventListener('blur', function() {
+                    validateCarFields(visitorCounter);
+                });
+        
+                newCarRegistrationNumberInput.addEventListener('blur', function() {
+                    validateCarFields(visitorCounter);
+                });
+            }
         });
         // // Функция для сброса стилей кнопки удаления
         // function resetDeleteButtonStyle(counter) {
