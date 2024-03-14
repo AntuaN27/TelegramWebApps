@@ -72,18 +72,19 @@
             position: relative;
             /* Добавлены свойства для фиксации полей ввода относительно верха */
             position: relative;
+            margin-bottom: 20px;
         }
-        
+        .input-container label {
+            margin-bottom: 5px; /* Отступ между меткой и полем ввода */
+        }
         .input-container input {
             width: 100%;
-            /* Убрано позиционирование */
-            /* position: relative; */
         }
         
         .error-message {
             color: red;
             font-size: 14px;
-            position: absolute;
+            position: relative;
             bottom: -80px; /* Отступ от нижнего края поля ввода */
         }
         .btn-lg {
