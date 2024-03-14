@@ -35,7 +35,7 @@
         .visitor-container {
             border: 1px solid #ced4da; /* Цвет и толщина рамки */
             border-radius: 5px; /* Скругление углов */
-            padding: 10px; /* Внутренний отступ */
+            padding: 20px; /* Внутренний отступ */
             margin-top: 15px; /* Отступ сверху между контейнерами */
         }
         /* Разместить кнопку справа вверху */
@@ -364,15 +364,6 @@
                     inputs.forEach(function(input) {
                         input.blur(); // Закрываем клавиатуру для всех полей ввода
                     });
-                }
-            });
-
-            let errorMessages = document.querySelectorAll('.error-message');
-
-            errorMessages.forEach(function(errorMessage) {
-                // Если сообщение об ошибке не пусто, добавляем отступ
-                if (errorMessage.textContent.trim() !== '') {
-                    errorMessage.previousElementSibling.style.marginBottom = '100px';
                 }
             });
         });
