@@ -67,10 +67,7 @@
         }
         /* Добавленные стили */
        .input-container {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            /* Добавлены свойства для фиксации полей ввода относительно верха */
+            position: relative;
             margin-top: 20px; /* Отступ сверху от заголовка "АВТОМОБИЛЬ N" */
         }
         .input-container input {
@@ -79,8 +76,7 @@
         
         .error-message {
             color: red;
-            font-size: 10px;
-            position: absolute;
+            font-size: 12px;
             bottom: -25px; /* Отступ от нижнего края поля ввода */
         }
         .btn-lg {
