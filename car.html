@@ -166,6 +166,23 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
+        function suggestModels() {
+            const input = document.getElementById('car_model_1').value.toLowerCase();
+            const dataList = document.getElementById('car_model_suggestions');
+            dataList.innerHTML = '';
+    
+            fetch('https://5704-95-31-19-28.ngrok-free.app/car_models?query=' + input)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(suggestion => {
+                    const option = document.createElement('option');
+                    option.value = suggestion;
+                    dataList.appendChild(option);
+                });
+            });
+        }
+    </script>
+    <script>
         // Подключение телеграмма
         let tg = window.Telegram.WebApp;
         tg.expand();
@@ -426,23 +443,6 @@
                 });
             });
         });
-    </script>
-    <script>
-        function suggestModels() {
-            const input = document.getElementById('car_model_1').value.toLowerCase();
-            const dataList = document.getElementById('car_model_suggestions');
-            dataList.innerHTML = '';
-
-            fetch('https://5704-95-31-19-28.ngrok-free.app/car_models?query=' + input)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(suggestion => {
-                    const option = document.createElement('option');
-                    option.value = suggestion;
-                    dataList.appendChild(option);
-                });
-            });
-        }
     </script>
 </body>
 </html>
