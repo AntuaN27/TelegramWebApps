@@ -433,7 +433,7 @@
             const dataList = document.getElementById('car_model_suggestions');
             dataList.innerHTML = '';
 
-            fetch('/car_models?query=' + input)
+            fetch('https://5704-95-31-19-28.ngrok-free.app/car_models?query=' + input)
             .then(response => response.json())
             .then(data => {
                 data.forEach(suggestion => {
