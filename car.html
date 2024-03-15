@@ -162,9 +162,8 @@
         document.getElementById('add_car').addEventListener('click', function() {
             visitorCounter++;
 
-            const screenWidth = window.screen.availWidth;
-            const halfWidth = screenWidth / 2;
-            window.resizeTo(halfWidth, window.outerHeight);
+            const halfScreenHeight = window.screen.availHeight / 2;
+            tg.resizeHeight(halfScreenHeight);
             
             let newVisitorField = document.createElement('div');
             newVisitorField.classList.add('visitor-container');
