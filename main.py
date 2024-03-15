@@ -41,7 +41,7 @@ HTML_CAR = f'95.31.19.28/scpass/car'
 app.mount("/static", StaticFiles(directory="../src/static"), name="static")
 
 # Загрузка данных из файла Excel
-wb = load_workbook('../src/static/cars.xlsx')
+wb = load_workbook('../src/cars.xlsx')
 sheet = wb.active
 
 # # Проверка данных из файла Excel
