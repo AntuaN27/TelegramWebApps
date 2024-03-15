@@ -137,7 +137,7 @@
                         <div style="flex: 1;">
                             <label for="car_model_1" style="margin-right: 10px;">Марка</label>
                             <div class="input-container">
-                                <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_1">
+                                <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_1" oninput="suggestModels()">
                                 <div class="text-danger error-message" id="car_model_error_1"></div>
                             </div>
                         </div>
@@ -425,6 +425,23 @@
                 });
             });
         });
+    </script>
+    <script>
+        function suggestModels() {
+            const input = document.getElementById('car_model_1').value.toLowerCase();
+            const dataList = document.getElementById('car_model_suggestions');
+            dataList.innerHTML = '';
+
+            fetch('/car_models?query=' + input)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(suggestion => {
+                    const option = document.createElement('option');
+                    option.value = suggestion;
+                    dataList.appendChild(option);
+                });
+            });
+        }
     </script>
 </body>
 </html>
