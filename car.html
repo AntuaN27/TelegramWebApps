@@ -170,24 +170,12 @@
             const carModelInput = document.getElementById('car_model_1');
             const suggestionsContainer = document.getElementById('car_model_suggestions');
         
-            carModelInput.addEventListener('input', async function(event) {
-                const query = event.target.value.trim();
+            // Дефолтные подсказки
+            const defaultSuggestions = ['Chevrolet', 'Ford', 'Toyota', 'Honda', 'BMW', 'Mercedes', 'Audi', 'Volkswagen', 'Nissan'];
         
-                if (query === '') {
-                    suggestionsContainer.innerHTML = ''; // Очищаем контейнер подсказок, если поле ввода пустое
-                    return;
-                }
-        
-                try {
-                    const response = await fetch(`https://5704-95-31-19-28.ngrok-free.app/car_models?query=${query}`);
-                    if (!response.ok) {
-                        throw new Error('Ошибка при получении подсказок');
-                    }
-                    const suggestions = await response.json();
-                    renderSuggestions(suggestions);
-                } catch (error) {
-                    console.error(error);
-                }
+            carModelInput.addEventListener('input', function(event) {
+                const query = event.target.value.trim().toLowerCase();
+                renderSuggestions(defaultSuggestions.filter(suggestion => suggestion.toLowerCase().includes(query)));
             });
         
             function renderSuggestions(suggestions) {
