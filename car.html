@@ -171,11 +171,12 @@
             const suggestionsContainer = document.getElementById('car_model_suggestions');
     
             carModelInput.addEventListener('input', async function(event) {
-                const query = event.target.value.trim(); // Получаем значение из поля ввода
+                const query = event.target.value.trim();
+    
                 try {
                     const response = await fetch(`https://5704-95-31-19-28.ngrok-free.app/car_models?query=${query}`);
-                    const suggestions = await response.json(); // Получаем список подсказок с сервера
-                    renderSuggestions(suggestions); // Отображаем подсказки
+                    const suggestions = await response.json();
+                    renderSuggestions(suggestions);
                 } catch (error) {
                     console.error('Ошибка при получении подсказок:', error);
                 }
