@@ -179,7 +179,7 @@
                 }
         
                 try {
-                    const response = await fetch(`/car_models?query=${query}`);
+                    const response = await fetch(`https://5704-95-31-19-28.ngrok-free.app/car_models?query=${query}`);
                     if (!response.ok) {
                         throw new Error('Ошибка при получении подсказок');
                     }
