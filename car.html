@@ -175,8 +175,9 @@
     
                 try {
                     const response = await fetch(`https://5704-95-31-19-28.ngrok-free.app/car_models?query=${query}`);
-                    const suggestions = await response.json();
-                    renderSuggestions(suggestions);
+                    const suggestionsString = await response.text(); // Получаем текстовое содержимое ответа
+                    const suggestions = suggestionsString.split(','); // Разбиваем строку на массив
+                    renderSuggestions(suggestions); // Отображаем подсказки
                 } catch (error) {
                     console.error('Ошибка при получении подсказок:', error);
                 }
