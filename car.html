@@ -187,7 +187,7 @@
             });
         });
     </script> -->
-    <script>
+<!--     <script>
         // Функция для отправки запроса на сервер и обновления подсказок
         async function fetchCarModelSuggestions(query) {
             try {
@@ -230,6 +230,33 @@
         // Обработчик события input для поля ввода модели автомобиля
         const carModelInput = document.getElementById('car_model_1');
         carModelInput.addEventListener('input', updateCarModelSuggestions);
+    </script> -->
+    <script>
+        const carModelInput = document.getElementById('car_model_1');
+        carModelInput.addEventListener('input', async function(event) {
+            const query = event.target.value;
+            const suggestionsContainer = document.getElementById('car_model_suggestions');
+            suggestionsContainer.innerHTML = '';
+    
+            if (query.trim() !== '') {
+                try {
+                    const response = await fetch(`https://5704-95-31-19-28.ngrok-free.app/car_models?query=${query}`);
+                    const suggestions = await response.json();
+                    suggestions.forEach(suggestion => {
+                        const suggestionElement = document.createElement('div');
+                        suggestionElement.textContent = suggestion;
+                        suggestionElement.classList.add('suggestion');
+                        suggestionElement.addEventListener('click', () => {
+                            document.getElementById('car_model_1').value = suggestion;
+                            suggestionsContainer.innerHTML = '';
+                        });
+                        suggestionsContainer.appendChild(suggestionElement);
+                    });
+                } catch (error) {
+                    console.error('Ошибка при получении подсказок:', error);
+                }
+            }
+        });
     </script>
     <script>
         // Подключение телеграмма
