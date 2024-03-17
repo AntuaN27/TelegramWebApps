@@ -261,11 +261,6 @@
                 });
             }
         });
-        // // Функция для сброса стилей кнопки удаления
-        // function resetDeleteButtonStyle(counter) {
-        //     let deleteButton = document.querySelector(`#visitor_container_${counter} .btn-delete-visitor`);
-        //     deleteButton.style.backgroundColor = 'transparent'; // Сбрасываем фон кнопки
-        // }
         // Функция удаления посетителя
         function removeVisitor(counter) {
             let visitorToRemove = document.getElementById(`visitor_container_${counter}`);
@@ -430,27 +425,5 @@
             });
         });
     </script>
-<!--     <script>
-        $(document).ready(function(){
-            $(document).on('input', 'input[id^="car_model_"]', function(){
-                const id = $(this).attr('id').split('_').pop();
-                const inputText = $(this).val().trim().toLowerCase();
-
-                // Очищаем список подсказок
-                const datalist = $('#car_model_' + id);
-                datalist.empty();
-
-                // Если введенный текст пуст, выходим из функции
-                if (!inputText) return;
-
-                // Запрашиваем подсказки с сервера
-                $.get('https://codassistant-test.dit.mos.ru/scpass/car_models', {query: inputText}, function(data){
-                    data.forEach(function(model){
-                        datalist.append('<option value="' + model + '">');
-                    });
-                });
-            });
-        });
-    </script> -->
 </body>
 </html>
