@@ -195,6 +195,26 @@
         </form>
     </div>
     <script>
+        // Добавляем событие blur для всех полей ФИО посетителей
+        let fioVisitorInputs = document.querySelectorAll('input[id^="fio_visitor_"]');
+        fioVisitorInputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateVisitorField(input);
+            });
+        });
+        
+        // Функция для проверки заполненности поля ФИО посетителя
+        function validateVisitorField(input) {
+            if (input.value.trim() === "") {
+                input.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
+                input.nextElementSibling.innerText = 'Пожалуйста, введите ФИО посетителя'; // Добавляем текст ошибки
+            } else {
+                input.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено
+                input.nextElementSibling.innerText = ''; // Очищаем текст ошибки
+            }
+        }
+    </script>
+    <script>
         // Создание календаря и выбора времени
         document.addEventListener('DOMContentLoaded', function () {
             let currentDate = new Date();
