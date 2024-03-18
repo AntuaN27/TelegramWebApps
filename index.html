@@ -155,20 +155,20 @@
                 <div>
                     <p style="font-weight: bold;">Посетитель 1</p>
                 </div>
-                <div class="form-group" style="display: flex; align-items: center;">
+                <div class="form-group" style="display: flex;">
                     <div style="flex: 1;">
                         <label for="fio_visitor_1" style="margin-right: 10px;">ФИО посетителя</label>
                         <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="fio_visitor_1" required>
                         <div class="error-message text-danger" id="fio_visitor_error_1"></div> <!-- Элемент для вывода сообщений об ошибке -->
                     </div>
-                    <div style="margin-left: 10px; display: flex; align-items: center;">
+                    <div style="margin-left: 10px; display: flex;">
                         <button type="button" onclick="toggleCarFields(1)" class="car-button" style="background: none; border: none; padding: 0; margin-top: 30px;">
                             <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 35px;" id="car_photo_1">
                         </button>
                     </div>
                 </div>
                 <div class="car-info" id="car_info_1" style="display: none;">
-                    <div class="form-group" style="display: flex; align-items: center;">
+                    <div class="form-group" style="display: flex;">
                         <div style="flex: 1;">
                             <label for="car_model_1" style="margin-right: 10px;">Марка</label>
                             <input type="text" class="form-control" placeholder="Chevrolet" id="car_model_1">
@@ -213,6 +213,41 @@
                 input.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено и длина больше 3 символов
                 input.nextElementSibling.innerText = ''; // Очищаем текст ошибки
             }
+        }
+
+        // Функция для валидации полей марки автомобиля и государственного номера
+        function validateCarFields(counter) {
+            let isValid = true; // Переменная для отслеживания валидности полей автомобиля
+            // Получаем элементы полей марки автомобиля и государственного номера
+            let carModelInput = document.getElementById(`car_model_${counter}`);
+            let carRegistrationNumberInput = document.getElementById(`car_registration_number_${counter}`);
+            let carModelError = document.getElementById(`car_model_error_${counter}`);
+            let carRegistrationNumberError = document.getElementById(`car_registration_number_error_${counter}`);
+            
+            // Проверка марки автомобиля
+            let carModel = carModelInput.value.trim();
+            if (carModel.length < 2) {
+                carModelError.innerText = 'Марка автомобиля должна содержать не менее 2 символов.';
+                carModelInput.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
+                isValid = false;
+            } else {
+                carModelError.innerText = ''; // Очищаем сообщение об ошибке
+                carModelInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
+            }
+            
+            // Проверка государственного номера автомобиля
+            let carRegistrationNumber = carRegistrationNumberInput.value.trim();
+            let registrationNumberPattern = /^[A-ZА-Я]\d{3}[A-ZА-Я]{2}\d{2,3}$/i;
+            if (!registrationNumberPattern.test(carRegistrationNumber)) {
+                carRegistrationNumberError.innerText = 'Некорректный госномер автомобиля (формат X123XX45 или X123XX456).';
+                carRegistrationNumberInput.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
+                isValid = false;
+            } else {
+                carRegistrationNumberError.innerText = ''; // Очищаем сообщение об ошибке
+                carRegistrationNumberInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
+            }
+            
+            return isValid;
         }
     </script>
     <script>
