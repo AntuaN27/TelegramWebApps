@@ -193,8 +193,8 @@
     </div>
     <script>
         // Добавляем обработчик события blur для всех полей ФИО посетителей
-        document.getElementById('form').addEventListener('blur', function(event) {
-            if (event.target && event.target.matches('input[id^="fio_visitor_"]')) {
+        document.addEventListener('blur', function(event) {
+            if (event.target.matches('input[id^="fio_visitor_"]')) {
                 validateVisitorField(event.target);
             }
         });
