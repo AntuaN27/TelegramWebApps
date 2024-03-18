@@ -192,14 +192,13 @@
         </form>
     </div>
     <script>
-        // Добавляем событие blur для всех полей ФИО посетителей
-        let fioVisitorInputs = document.querySelectorAll('input[id^="fio_visitor_"]');
-        fioVisitorInputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                validateVisitorField(input);
-            });
+        // Добавляем обработчик события blur для всех полей ФИО посетителей
+        document.getElementById('form').addEventListener('blur', function(event) {
+            if (event.target && event.target.matches('input[id^="fio_visitor_"]')) {
+                validateVisitorField(event.target);
+            }
         });
-        
+    
         // Функция для проверки заполненности и минимальной длины поля ФИО посетителя
         function validateVisitorField(input) {
             const inputValue = input.value.trim();
@@ -211,7 +210,7 @@
                 input.nextElementSibling.innerText = ''; // Очищаем текст ошибки
             }
         }
-
+    
         // Функция для валидации полей марки автомобиля и государственного номера
         function validateCarFields(counter) {
             let isValid = true; // Переменная для отслеживания валидности полей автомобиля
@@ -220,7 +219,7 @@
             let carRegistrationNumberInput = document.getElementById(`car_registration_number_${counter}`);
             let carModelError = document.getElementById(`car_model_error_${counter}`);
             let carRegistrationNumberError = document.getElementById(`car_registration_number_error_${counter}`);
-            
+    
             // Проверка марки автомобиля
             let carModel = carModelInput.value.trim();
             if (carModel.length < 2) {
@@ -231,7 +230,7 @@
                 carModelError.innerText = ''; // Очищаем сообщение об ошибке
                 carModelInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
             }
-            
+    
             // Проверка государственного номера автомобиля
             let carRegistrationNumber = carRegistrationNumberInput.value.trim();
             let registrationNumberPattern = /^[A-ZА-Я]\d{3}[A-ZА-Я]{2}\d{2,3}$/i;
@@ -243,7 +242,7 @@
                 carRegistrationNumberError.innerText = ''; // Очищаем сообщение об ошибке
                 carRegistrationNumberInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
             }
-            
+    
             return isValid;
         }
     </script>
@@ -306,7 +305,7 @@
                         </div>
                         <div style="display: flex; align-items: center;">
                             <button type="button" onclick="toggleCarFields(${visitorCounter})" class="car-button" style="background: none; border: none; padding: 0; margin-left: 10px; margin-top: 28px;">
-                                <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 35px;" id="car_photo_${visitorCounter}">
+                                <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 40px;" id="car_photo_${visitorCounter}">
                             </button>
                         </div>
                     </div>
