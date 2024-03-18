@@ -38,8 +38,6 @@
             border-radius: 5px; /* Скругление углов */
             padding: 10px; /* Внутренний отступ */
             margin-top: 15px; /* Отступ сверху между контейнерами */
-            display: flex; /* Размещаем элементы внутри контейнера в одну линию */
-            align-items: center; /* Выравниваем элементы по центру по вертикали */
         }
         /* Разместить кнопку справа вверху */
         .delete-button-container {
@@ -150,7 +148,7 @@
                     <p style="font-weight: bold;">Посетитель 1</p>
                 </div>
                 <div class="form-group" style="display: flex;">
-                    <div style="flex: 1;">
+                    <div style="flex: 3;">
                         <label for="fio_visitor_1" style="margin-right: 10px;">ФИО посетителя</label>
                         <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="fio_visitor_1" required>
                         <div class="error-message text-danger" id="fio_visitor_error_1"></div> <!-- Элемент для вывода сообщений об ошибке -->
