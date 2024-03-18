@@ -193,21 +193,28 @@
     </div>
     <script>
         // Добавляем обработчик события blur для всех полей ФИО посетителей
-        document.addEventListener('blur', function(event) {
-            if (event.target.matches('input[id^="fio_visitor_"]')) {
-                validateVisitorField(event.target);
-            }
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем все поля ФИО посетителей
+            let fioVisitorInputs = document.querySelectorAll('input[id^="fio_visitor_"]');
     
+            // Добавляем обработчик события blur к каждому полю ФИО посетителя
+            fioVisitorInputs.forEach(input => {
+                input.addEventListener('blur', function(event) {
+                    validateVisitorField(event.target);
+                });
+            });
+        });
+        
         // Функция для проверки заполненности и минимальной длины поля ФИО посетителя
         function validateVisitorField(input) {
             const inputValue = input.value.trim();
+            const errorElement = input.nextElementSibling;
             if (inputValue === "" || inputValue.length < 3) {
                 input.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
-                input.nextElementSibling.innerText = 'ФИО должно содержать не менее 3 символов'; // Добавляем текст ошибки
+                errorElement.innerText = 'ФИО должно содержать не менее 3 символов'; // Добавляем текст ошибки
             } else {
                 input.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено и длина больше 3 символов
-                input.nextElementSibling.innerText = ''; // Очищаем текст ошибки
+                errorElement.innerText = ''; // Очищаем текст ошибки
             }
         }
     
