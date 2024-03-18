@@ -203,13 +203,14 @@
             });
         });
         
-        // Функция для проверки заполненности поля ФИО посетителя
+        // Функция для проверки заполненности и минимальной длины поля ФИО посетителя
         function validateVisitorField(input) {
-            if (input.value.trim() === "") {
+            const inputValue = input.value.trim();
+            if (inputValue === "" || inputValue.length < 3) {
                 input.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
-                input.nextElementSibling.innerText = 'Пожалуйста, введите ФИО посетителя'; // Добавляем текст ошибки
+                input.nextElementSibling.innerText = 'ФИО должно содержать не менее 3 символов'; // Добавляем текст ошибки
             } else {
-                input.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено
+                input.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено и длина больше 3 символов
                 input.nextElementSibling.innerText = ''; // Очищаем текст ошибки
             }
         }
