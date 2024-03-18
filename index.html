@@ -38,6 +38,9 @@
             border-radius: 5px; /* Скругление углов */
             padding: 10px; /* Внутренний отступ */
             margin-top: 15px; /* Отступ сверху между контейнерами */
+            display: flex; /* Размещаем элементы внутри контейнера в одну линию */
+            align-items: center; /* Выравниваем элементы по центру по вертикали */
+            align-items: stretch; /* Выровнять элементы по высоте */
         }
         /* Разместить кнопку справа вверху */
         .delete-button-container {
@@ -143,13 +146,13 @@
             <div>
                 <p style="font-weight: bold; margin-top: 30px;">ДАННЫЕ О ПОСЕТИТЕЛЯХ</p>
             </div>
-            <div class="visitor-container" id="visitor_container_1" style="position: relative;">
+            <div class="visitor-container" id="visitor_container_1">
                 <div>
                     <p style="font-weight: bold;">Посетитель 1</p>
                 </div>
 <!--                 <div class="form-group" style="display: flex; align-items: center;">
                      -->
-                <div class="form-group" style="display: flex; position: relative;">
+                <div class="form-group">
                     <div style="flex: 1;">
                         <label for="fio_visitor_1" style="margin-right: 10px;">ФИО посетителя</label>
                         <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="fio_visitor_1" required>
