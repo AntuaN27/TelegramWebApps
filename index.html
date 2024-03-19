@@ -160,7 +160,7 @@
                     <div style="width: 10px;"></div> <!-- отступ -->
                     <div style="flex: 0;">
                         <button type="button" onclick="toggleCarFields(1)" class="car-button" style="background: none; border: none; padding: 0; margin-top: 30px;">
-                            <img src="https://codassistant-test.dit.mos.ru/scpass/static/car1.jpg" alt="+ M" style="width: 35px; height: 40px;" id="car_photo_1">
+                            <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 40px;" id="car_photo_1">
                         </button>
                     </div>
                 </div>
@@ -312,7 +312,7 @@
                         </div>
                         <div style="display: flex; align-items: center;">
                             <button type="button" onclick="toggleCarFields(${visitorCounter})" class="car-button" style="background: none; border: none; padding: 0; margin-left: 10px; margin-top: 28px;">
-                                <img src="https://codassistant-test.dit.mos.ru/scpass/static/car1.jpg" alt="+ M" style="width: 35px; height: 40px;" id="car_photo_${visitorCounter}">
+                                <img src="https://codassistant-test.dit.mos.ru/scpass/static/car.jpg" alt="+ M" style="width: 35px; height: 40px;" id="car_photo_${visitorCounter}">
                             </button>
                         </div>
                     </div>
@@ -386,11 +386,11 @@
             if (computedStyle.display === 'none') {
                 carInfo.style.display = 'block';
                 // Изменяем изображение на кнопке при раскрытии полей
-                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/del_car1.jpg'; // Путь к изображению при открытых полях
+                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/del_car.jpg'; // Путь к изображению при открытых полях
             } else {
                 carInfo.style.display = 'none';
                 // Изменяем изображение на кнопке при скрытии полей
-                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/car1.jpg'; // Путь к изображению при закрытых полях
+                document.getElementById(`car_photo_${counter}`).src = 'https://codassistant-test.dit.mos.ru/scpass/static/car.jpg'; // Путь к изображению при закрытых полях
             }
         }
 
