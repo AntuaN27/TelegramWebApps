@@ -534,6 +534,22 @@
             };
             xhr.send(JSON.stringify(data));
         });
+
+        // Обработчики событий для валидации полей автомобилей при потере фокуса
+        for (let i = 1; i <= visitorCounter; i++) {
+            let carModelInput = document.getElementById(`car_model_${i}`);
+            let carRegistrationNumberInput = document.getElementById(`car_registration_number_${i}`);
+
+            if (carModelInput && carRegistrationNumberInput) {
+                carModelInput.addEventListener('blur', function() {
+                    validateCarFields(i);
+                });
+
+                carRegistrationNumberInput.addEventListener('blur', function() {
+                    validateCarFields(i);
+                });
+            }
+        }
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
