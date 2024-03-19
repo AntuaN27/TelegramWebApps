@@ -220,36 +220,36 @@
     
         // Функция для валидации полей марки автомобиля и государственного номера
         function validateCarFields(counter) {
-            let isValid = true; // Переменная для отслеживания валидности полей автомобиля
-            // Получаем элементы полей марки автомобиля и государственного номера
+            let isValid = true; // Переменная для отслеживания валидности полей автомобиля.
+            // Получаем значения модели автомобиля и госномера
             let carModelInput = document.getElementById(`car_model_${counter}`);
             let carRegistrationNumberInput = document.getElementById(`car_registration_number_${counter}`);
             let carModelError = document.getElementById(`car_model_error_${counter}`);
             let carRegistrationNumberError = document.getElementById(`car_registration_number_error_${counter}`);
-    
-            // Проверка марки автомобиля
+        
+            // Проверка модели автомобиля
             let carModel = carModelInput.value.trim();
             if (carModel.length < 2) {
                 carModelError.innerText = 'Марка автомобиля должна содержать не менее 2 символов.';
-                carModelInput.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
+                carModelInput.style.borderColor = 'red';
                 isValid = false;
             } else {
                 carModelError.innerText = ''; // Очищаем сообщение об ошибке
-                carModelInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
+                carModelInput.style.borderColor = ''; // Сбрасываем стили
             }
-    
-            // Проверка государственного номера автомобиля
+        
+            // Проверка госномера автомобиля
             let carRegistrationNumber = carRegistrationNumberInput.value.trim();
             let registrationNumberPattern = /^[A-ZА-Я]\d{3}[A-ZА-Я]{2}\d{2,3}$/i;
             if (!registrationNumberPattern.test(carRegistrationNumber)) {
                 carRegistrationNumberError.innerText = 'Некорректный госномер автомобиля (формат X123XX45 или X123XX456).';
-                carRegistrationNumberInput.classList.add('is-invalid'); // Добавляем класс для выделения поля в случае ошибки
+                carRegistrationNumberInput.style.borderColor = 'red';
                 isValid = false;
             } else {
                 carRegistrationNumberError.innerText = ''; // Очищаем сообщение об ошибке
-                carRegistrationNumberInput.classList.remove('is-invalid'); // Удаляем класс, если поле заполнено корректно
+                carRegistrationNumberInput.style.borderColor = ''; // Сбрасываем стили
             }
-    
+        
             return isValid;
         }
     </script>
