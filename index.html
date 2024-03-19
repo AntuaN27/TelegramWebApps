@@ -337,6 +337,8 @@
             let lastVisitorContainer = document.getElementById(`visitor_container_${visitorCounter - 1}`);
             // Вставляем новый контейнер после последнего контейнера
             lastVisitorContainer.parentNode.insertBefore(newVisitorField, lastVisitorContainer.nextSibling);
+            // Вызываем функцию для добавления обработчика события blur к новому полю ФИО посетителя
+            validateVisitorField(document.getElementById(`fio_visitor_${visitorCounter}`));
         });
         
         // Функция удаления посетителя
